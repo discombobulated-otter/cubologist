@@ -1,0 +1,28 @@
+import React from "react";
+
+const COLORS = [
+    { name: "white", hex: "#FFFFFF" },
+    { name: "yellow", hex: "#FFD500" },
+    { name: "red", hex: "#C41E3A" },
+    { name: "orange", hex: "#FF5800" },
+    { name: "green", hex: "#009E60" },
+    { name: "blue", hex: "#0057A6" },
+];
+
+export default function ColorPalette({ selected, onSelect }) {
+    return (
+        <div className="flex space-x-4 overflow-x-auto py-2">
+            {COLORS.map((color) => (
+                <button
+                    key={color.name}
+                    onClick={() => onSelect(color.name)}
+                    className={`w-12 h-12 rounded-full border-4 transition-all duration-150
+                        ${selected === color.name ? "border-black scale-110" : "border-transparent"}
+                        focus:outline-none`}
+                    style={{ backgroundColor: color.hex }}
+                    aria-label={color.name}
+                />
+            ))}
+        </div>
+    );
+}
