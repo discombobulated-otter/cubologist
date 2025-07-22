@@ -2,9 +2,13 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
-  gap: 4px;
+  gap: 5px;
   max-width: 130px;
-  width: 100%;
+  place-items: center;
+  justify-content: center;
+  align-content: center;
+  width: max-content; /* or a fixed width */
+  margin: 0 auto;
   aspect-ratio: 1 / 1;
 }
 

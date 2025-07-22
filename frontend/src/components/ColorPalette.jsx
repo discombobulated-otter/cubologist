@@ -11,7 +11,7 @@ const COLORS = [
 
 export default function ColorPalette({ selected, onSelect }) {
     return (
-        <div className="flex space-x-4 overflow-x-auto py-2">
+        <div className="flex flex-wrap gap-2 justify-center">
             {COLORS.map((color) => (
                 <button
                     key={color.name}
@@ -24,5 +24,6 @@ export default function ColorPalette({ selected, onSelect }) {
                 />
             ))}
         </div>
+
     );
 }
