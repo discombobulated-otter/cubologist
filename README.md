@@ -1,1 +1,1 @@
-Kyoobe
+Kyoob solver
