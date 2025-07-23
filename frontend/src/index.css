@@ -1,5 +1,7 @@
-<<<<<<< HEAD
+/* src/index.css or tailwind.css */
 @import "tailwindcss";
-=======
-@import "tailwindcss";
->>>>>>> c953d1b49236407ac69cdbafc2184772d3222c5a
+body {
+  background-color: #030712;
+  color: #ffffff;
+  min-height: 100vh;
+}

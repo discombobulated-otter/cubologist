@@ -1,13 +1,14 @@
 import React from "react";
+import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from "react-icons/fa";
 
 // Cube faces and their display names
 const faces = [
-    { key: "U", name: "Up (U)" },
-    { key: "R", name: "Right (R)" },
-    { key: "F", name: "Front (F)" },
-    { key: "D", name: "Down (D)" },
-    { key: "L", name: "Left (L)" },
-    { key: "B", name: "Back (B)" },
+    { key: "U", name: "White" },
+    { key: "R", name: "Red" },
+    { key: "F", name: "Green" },
+    { key: "D", name: "Yellow" },
+    { key: "L", name: "Orange" },
+    { key: "B", name: "Blue" },
 ];
 
 export default function FaceNavigator({ currentFace, setCurrentFace }) {
@@ -20,23 +21,24 @@ export default function FaceNavigator({ currentFace, setCurrentFace }) {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center space-y-4 p-4">
+        <div className="flex flex-col items-center justify-center space-y-6 p-10">
             <div className="flex w-full justify-between items-center">
-                <button
-                    className="bg-blue-500 text-white px-4 py-2 rounded shadow"
+                <FaArrowAltCircleLeft 
+                    className="text-4xl scale-150 cursor-pointer"
                     onClick={handlePrev}
-                >
-                    Previous Face
-                </button>
-                <span className="text-lg font-semibold mx-4">
+                    aria-label="Previous Face"
+                />
+
+
+                <span className="text-2xl font-bold mx-20 min-w-[100px] text-center">
                     {faces[currentFace].name}
                 </span>
-                <button
-                    className="bg-blue-500 text-white px-4 py-2 rounded shadow"
+                
+                <FaArrowAltCircleRight 
+                    className="text-4xl scale-150 cursor-pointer"
                     onClick={handleNext}
-                >
-                    Next Face
-                </button>
+                    aria-label="Next Face"
+                />
             </div>
         </div>
     );

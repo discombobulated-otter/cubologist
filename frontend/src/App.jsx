@@ -1,81 +1,79 @@
-import { useState } from 'react'
-import './App.css'
+
+import { useState, useEffect } from 'react'
 import ColorPalette from './components/ColorPalette'
 import CubeFaceGrid from './components/CubeFaceGrid'
 import FaceNavigator from './components/FaceNavigator'
 import SubmitButton from './components/SubmitButton'
 import validateCube from './utils/ValidateCube'
+import {
+  initializeCubeState,
+  paintCubeCell,
+  checkCubeComplete,
+  buildCubeObject,
+} from './utils/CubeHelper'
 
 const faceKeys = ['U', 'R', 'F', 'D', 'L', 'B']
-const FACE_CENTER_COLOR = {
-  U: 'yellow',
-  D: 'white',
-  F: 'green',
-  B: 'blue',
-  L: 'orange',
-  R: 'red',
-}
 
 function CubeEditor() {
   const [selectedColor, setSelectedColor] = useState('white')
-  // Initialize cubeState with correct center stickers
-  const initialCubeState = faceKeys.map(faceKey =>
-    Array(9).fill(null).map((_, i) => (i === 4 ? FACE_CENTER_COLOR[faceKey] : 'white'))
-  )
-  const [cubeState, setCubeState] = useState(initialCubeState)
+  const [cubeState, setCubeState] = useState(initializeCubeState)
   const [currentFace, setCurrentFace] = useState(0)
   const [isLoading, setIsLoading] = useState(false)
   const [validation, setValidation] = useState({ valid: false, errors: [] })
 
-  const handlePaint = (cellIdx) => {
-    if (cellIdx === 4) return // Don't allow painting the center
-    setCubeState(prev =>
-      prev.map((face, idx) =>
-        idx === currentFace
-          ? face.map((color, i) => (i === 4 ? FACE_CENTER_COLOR[faceKeys[idx]] : (i === cellIdx ? selectedColor : color)))
-          : face
-      )
-    )
-  }
+  useEffect(() => {
+    const result = validateCube(buildCubeObject(cubeState))
+    setValidation(result)
+  }, [cubeState])
 
-  // Validate cube on every change
-  const cubeObj = Object.fromEntries(faceKeys.map((k, i) => [k, cubeState[i]]))
-  const isCubeInputComplete = cubeState.every(face => face.every((color, i) => color && (i !== 4 || color === FACE_CENTER_COLOR[faceKeys[cubeState.indexOf(face)]])))
-  const validationResult = validateCube(cubeObj)
+  const handlePaint = (cellIdx) => {
+    if (cellIdx === 4) return
+    setCubeState(prev => paintCubeCell(prev, currentFace, cellIdx, selectedColor))
+  }
 
   const handleSubmit = () => {
     setIsLoading(true)
     setTimeout(() => {
-      setValidation(validationResult)
       setIsLoading(false)
-      if (!validationResult.valid) {
-        alert('Cube is invalid: ' + validationResult.errors.join('\n'))
+      if (!validation.valid) {
+        alert('Cube is invalid: ' + validation.errors.join('\n'))
       } else {
         alert('Cube is valid! (You can implement solving logic here)')
       }
     }, 1000)
   }
 
+  const isCubeInputComplete = checkCubeComplete(cubeState)
+
   return (
-    <div className="flex flex-col gap-6 p-8 max-w-2xl mx-auto scale-110">
+<div className="min-h-screen flex flex-col justify-center items-center gap-6 p-8 bg-[#030712] text-white select-none">
+
       <ColorPalette selected={selectedColor} onSelect={setSelectedColor} />
-      <CubeFaceGrid
-        faceData={cubeState[currentFace]}
-        onPaint={handlePaint}
-        faceKey={faceKeys[currentFace]}
-      />
+
+      <div className="text-2xl font-bold text-center mb-4">Current Face: {faceKeys[currentFace]}</div>
+
+      <div className="m-4 flex flex-col items-center gap-10">
+        <CubeFaceGrid
+          faceData={cubeState[currentFace]}
+          onPaint={handlePaint}
+          faceKey={faceKeys[currentFace]}
+        />
+      </div>
+    <div className="flex justify-center items-center space-x-4 mb-6">
       <FaceNavigator
-        currentFace={currentFace}
+        currentFace={currentFace} 
         setCurrentFace={setCurrentFace}
       />
+    </div>
       <SubmitButton
         onSubmit={handleSubmit}
         isLoading={isLoading}
-        isCubeInputComplete={isCubeInputComplete && validationResult.valid}
+        isCubeInputComplete={isCubeInputComplete && validation.valid}
       />
-      {validationResult.errors.length > 0 && !validationResult.valid && (
+
+      {validation.errors.length > 0 && !validation.valid && (
         <div className="text-red-500 text-sm mt-2">
-          {validationResult.errors.map((err, i) => <div key={i}>{err}</div>)}
+          {validation.errors.map((err, i) => <div key={i}>{err}</div>)}
         </div>
       )}
     </div>

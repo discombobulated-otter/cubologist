@@ -10,10 +10,12 @@ export default function SubmitButton({ onSubmit, isLoading, isCubeInputComplete 
                 fontSize: "1rem",
                 borderRadius: "4px",
                 border: "none",
-                background: isLoading ? "#ccc" : "#007bff",
+                background: isLoading ? "#ccc" : "#CB010F",
                 color: "#fff",
                 cursor: (!isCubeInputComplete || isLoading) ? "not-allowed" : "pointer",
                 transition: "background 0.2s",
+                width: "200px",
+                margin: "0 auto",
             }}
             onMouseOver={e => {
                 if (!isLoading && isCubeInputComplete) {
@@ -22,7 +24,7 @@ export default function SubmitButton({ onSubmit, isLoading, isCubeInputComplete 
             }}
             onMouseOut={e => {
                 if (!isLoading && isCubeInputComplete) {
-                    e.currentTarget.style.background = "#007bff";
+                    e.currentTarget.style.background = "#CB010F";
                 }
             }}
         >
@@ -43,7 +45,7 @@ export default function SubmitButton({ onSubmit, isLoading, isCubeInputComplete 
                     Loading...
                 </span>
             ) : (
-                isCubeInputComplete ? "Solve" : "Submit"
+                    "Solve"
             )}
             <style>
                 {`
