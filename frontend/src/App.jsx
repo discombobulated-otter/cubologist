@@ -57,7 +57,7 @@ function CubeEditor() {
   }
 
   return (
-    <div className="flex flex-col gap-4 p-4 max-w-md mx-auto">
+    <div className="flex flex-col gap-6 p-8 max-w-2xl mx-auto scale-110">
       <ColorPalette selected={selectedColor} onSelect={setSelectedColor} />
       <CubeFaceGrid
         faceData={cubeState[currentFace]}
