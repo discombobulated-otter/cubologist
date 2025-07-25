@@ -23,18 +23,17 @@ export default function FaceNavigator({ currentFace, setCurrentFace }) {
     return (
         <div className="flex flex-col items-center justify-center space-y-6 p-10">
             <div className="flex w-full justify-between items-center">
-                <FaArrowAltCircleLeft 
+                <FaArrowAltCircleLeft
                     className="text-4xl scale-150 cursor-pointer"
                     onClick={handlePrev}
                     aria-label="Previous Face"
                 />
 
-
                 <span className="text-2xl font-bold mx-20 min-w-[100px] text-center">
                     {faces[currentFace].name}
                 </span>
-                
-                <FaArrowAltCircleRight 
+
+                <FaArrowAltCircleRight
                     className="text-4xl scale-150 cursor-pointer"
                     onClick={handleNext}
                     aria-label="Next Face"
