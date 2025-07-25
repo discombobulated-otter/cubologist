@@ -28,6 +28,7 @@ export const checkCubeComplete = (state) =>
       color && (i !== 4 || color === FACE_CENTER_COLOR[faceKeys[faceIdx]])
     )
   )
+
 export const buildCubeObject = (state) =>
   Object.fromEntries(faceKeys.map((k, i) => [k, state[i]]))
 
@@ -58,3 +59,4 @@ export const buildCubeStringFromState = (cubeState) => {
   const cubeObject = buildCubeObject(cubeState);
   return buildCubeString(cubeObject);
 };
+// format should be "UUUUUUUUURRRRRRRRFFFFFFFFFDDDDDDDDDLLLLLLLLLBBBBBBBBB"

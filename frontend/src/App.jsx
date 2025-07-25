@@ -1,124 +1,83 @@
-import { useState, useEffect } from "react";
-import ColorPalette from "./components/ColorPalette";
-import CubeFaceGrid from "./components/CubeFaceGrid";
-import FaceNavigator from "./components/FaceNavigator";
-import SubmitButton from "./components/SubmitButton";
-import validateCube from "./utils/ValidateCube";
-import cubeSolver from "cube-solver"; // Assuming cube-solver is a valid import
+import { useState } from "react";
 import {
-    initializeCubeState,
-    paintCubeCell,
-    checkCubeComplete,
-    buildCubeObject,
-    buildCubeString,
-} from "./utils/CubeHelper";
+    BrowserRouter as Router,
+    Routes,
+    Route,
+    Link,
+    useLocation,
+} from "react-router-dom";
+import { Menu, X, Box, Timer, Eye } from "lucide-react";
 
-const faceKeys = ["U", "R", "F", "D", "L", "B"];
+import CubeEditor from "./utils/CubeEditor";
 
-function CubeEditor() {
-    const [selectedColor, setSelectedColor] = useState("white");
-    const [cubeState, setCubeState] = useState(initializeCubeState);
-    const [currentFace, setCurrentFace] = useState(0);
-    const [isLoading, setIsLoading] = useState(false);
-    const [validation, setValidation] = useState({ valid: false, errors: [] });
+const navItems = [
+    { path: "/", label: "Cube Editor", icon: Box },
+    { path: "/timer", label: "Solve Timer", icon: Timer },
+    { path: "/visualizer", label: "3D Visualizer", icon: Eye },
+];
 
-    useEffect(() => {
-        if (!checkCubeComplete(cubeState)) {
-            setValidation({ valid: false, errors: ["Cube is incomplete."] });
-            return;
-        }
-
-        const result = validateCube(buildCubeObject(cubeState));
-        setValidation(result || { valid: false, errors: [] });
-    }, [cubeState]);
-
-    const handlePaint = (cellIdx) => {
-        if (cellIdx === 4) return;
-        setCubeState((prev) =>
-            paintCubeCell(prev, currentFace, cellIdx, selectedColor)
-        );
-    };
-    const handleSubmit = () => {
-        if (!checkCubeComplete(cubeState)) {
-            alert("Cube is incomplete. Please fill all cells.");
-            return;
-        }
-
-        setIsLoading(true);
-        setTimeout(() => {
-            setIsLoading(false);
-            if (!validation.valid) {
-                alert("Cube is invalid: " + validation.errors.join("\n"));
-            } else {
-                const cubeObject = buildCubeObject(cubeState);
-const kociembaString = buildCubeString(cubeObject);
-                console.log("Kociemba String:", kociembaString);
-
-                try {
-                    const solution = cubeSolver.solve(kociembaString);
-                    alert(
-                        "Solution: " +
-                            (Array.isArray(solution)
-                                ? solution.join(" ")
-                                : solution)
-                    );
-                } catch (error) {
-                    alert("Error solving cube: " + error.message);
-                }
-            }
-        }, 1000);
-    };
-
-    const isCubeInputComplete = checkCubeComplete(cubeState);
+function Sidebar({ collapsed, toggle }) {
+    const location = useLocation();
 
     return (
-        <div className="min-h-screen flex flex-col justify-center items-center gap-6 p-8 bg-[#030712] text-white select-none">
-            <ColorPalette
-                selected={selectedColor}
-                onSelect={setSelectedColor}
-            />
+        <aside
+            className={`bg-gray-900 text-white h-screen transition-all duration-300 ${
+                collapsed ? "w-16" : "w-64"
+            } flex flex-col`}
+        >
+            <div className="p-4 flex justify-between items-center">
+                <button onClick={toggle} className="text-white">
+                    {collapsed ? <Menu /> : <X />}
+                </button>
+            </div>
+            <nav className="flex flex-col gap-2 px-2">
+                {navItems.map(({ path, label, icon: Icon }) => {
+                    const isActive = location.pathname === path;
+                    return (
+                        <Link
+                            key={path}
+                            to={path}
+                            className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 ${
+                                isActive
+                                    ? "bg-gradient-to-r from-yellow-500 to-orange-500 text-white"
+                                    : "text-gray-300 hover:text-white hover:bg-gray-800"
+                            }`}
+                        >
+                            <div className="flex items-center justify-center w-6">
+                                <Icon size={18} />
+                            </div>
+                            {!collapsed && <span>{label}</span>}
+                        </Link>
+                    );
+                })}
+            </nav>
+        </aside>
+    );
+}
 
-            <div className="text-2xl font-bold text-center mb-4">
-                Current Face: {faceKeys[currentFace]}
-            </div>
+function SidebarLayout({ children }) {
+    const [collapsed, setCollapsed] = useState(false);
 
-            <div className="m-4 flex flex-col items-center gap-10">
-                <CubeFaceGrid
-                    faceData={cubeState[currentFace]}
-                    onPaint={handlePaint}
-                    faceKey={faceKeys[currentFace]}
-                />
-            </div>
-            <div className="flex justify-center items-center space-x-4 mb-6">
-                <FaceNavigator
-                    currentFace={currentFace}
-                    setCurrentFace={setCurrentFace}
-                />
-            </div>
-            <div>
-                <SubmitButton
-                    onSubmit={handleSubmit}
-                    isLoading={isLoading}
-                    isCubeInputComplete={
-                        isCubeInputComplete && validation.valid
-                    }
-                />
-
-                {validation.errors.length > 0 && !validation.valid && (
-                    <div className="text-red-500 text-sm mt-2">
-                        {validation.errors.map((err, i) => (
-                            <div key={i}>{err}</div>
-                        ))}
-                    </div>
-                )}
-            </div>
+    return (
+        <div className="flex min-h-screen bg-[#030712] text-white">
+            <Sidebar collapsed={collapsed} toggle={() => setCollapsed((c) => !c)} />
+            <main className="flex-1 p-6 overflow-y-auto">{children}</main>
         </div>
     );
 }
 
 function App() {
-    return <CubeEditor />;
+    return (
+        <Router>
+            <SidebarLayout>
+                <Routes>
+                    <Route path="/" element={<CubeEditor />} />
+                    <Route path="/timer" element={<div>Timer Page (WIP)</div>} />
+                    <Route path="/visualizer" element={<div>3D Visualizer (WIP)</div>} />
+                </Routes>
+            </SidebarLayout>
+        </Router>
+    );
 }
 
 export default App;
-export { CubeEditor };
