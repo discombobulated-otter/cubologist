@@ -1,9 +1,9 @@
-// utils/CubeHelper.jsx
+// CubeHelper.jsx
 const faceKeys = ['U', 'R', 'F', 'D', 'L', 'B'];
 
 export const FACE_CENTER_COLOR = {
-  U: 'yellow',
-  D: 'white',
+  U: 'white',    // Changed from 'yellow' to 'white'
+  D: 'yellow',   // Changed from 'white' to 'yellow'
   F: 'green',
   B: 'blue',
   L: 'orange',
@@ -12,7 +12,7 @@ export const FACE_CENTER_COLOR = {
 
 export const initializeCubeState = () =>
   faceKeys.map(faceKey =>
-    Array(9).fill(null).map((_, i) => (i === 4 ? FACE_CENTER_COLOR[faceKey] : '#030712'))
+    Array(9).fill(null).map((_, i) => (i === 4 ? FACE_CENTER_COLOR[faceKey] : null))
   );
 
 export const paintCubeCell = (prevState, faceIdx, cellIdx, color) =>
@@ -33,27 +33,28 @@ export const buildCubeObject = (state) =>
   Object.fromEntries(faceKeys.map((k, i) => [k, state[i]]));
 
 export const buildCubeString = (cubeObject) => {
+  // Use standard Rubik's cube color mapping
   const colorMap = {
-    [cubeObject.U[4]]: 'U',
-    [cubeObject.R[4]]: 'R',
-    [cubeObject.F[4]]: 'F',
-    [cubeObject.D[4]]: 'D',
-    [cubeObject.L[4]]: 'L',
-    [cubeObject.B[4]]: 'B',
+    'white': 'U',
+    'red': 'R', 
+    'green': 'F',
+    'yellow': 'D',
+    'orange': 'L',
+    'blue': 'B',
   };
 
-  return faceKeys
-    .map(face =>
-      cubeObject[face]
-        .map(color => {
-          if (!(color in colorMap)) {
-            throw new Error(`Unrecognized color: ${color} at face ${face}`);
-          }
-          return colorMap[color];
-        })
-        .join('')
-    )
-    .join('');
+  return ['U', 'R', 'F', 'D', 'L', 'B']
+    .map(face => {
+      return cubeObject[face].map((color, i) => {
+        if (!color) {
+          throw new Error(`Unpainted cell at ${face}[${i}]`);
+        }
+        if (!(color in colorMap)) {
+          throw new Error(`Unrecognized color: ${color} on face ${face}[${i}]`);
+        }
+        return colorMap[color];
+      }).join('');
+    }).join('');
 };
 
 export const buildCubeStringFromState = (cubeState) => {
