@@ -1,5 +1,4 @@
-import { Canvas, useFrame } from "@react-three/fiber";
-
+import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import Rubik from "./Rubik"; 
 
@@ -9,7 +8,7 @@ import Rubik from "./Rubik";
 function Voxel() {
     return (
         <div className="h-screen w-screen flex justify-center items-center bg-[#030712]">
-            <Canvas shadows camera={{ position: [6, 6, 6], fov: 50 }}>
+            <Canvas shadows camera={{ position: [6, 6, 6], fov: 53 }}>
                 <OrbitControls
                     enableDamping={true}
                     dampingFactor={0.5} // range: 0 (no damping) to ~0.25 (high damping)
