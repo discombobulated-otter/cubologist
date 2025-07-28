@@ -13,7 +13,7 @@ const COLORS = [
 
 export default function ColorPalette({ selected, onSelect }) {
     return (
-        <div className="flex flex-wrap gap-12 justify-center mb-4 ">
+        <div className="flex flex-wrap gap-12 justify-center mb-4 mt-4">
             {COLORS.map((color) => (
                 <button
                     key={color.name}

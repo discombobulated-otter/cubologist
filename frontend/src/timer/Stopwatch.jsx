@@ -61,7 +61,7 @@ const Stopwatch = () => {
         {seconds.toString().padStart(2, "0")}:
         {milliseconds.toString().padStart(3, "0")}
       </p>
-      <div className="stopwatch-buttons m-20 text-base">
+      <div className="stopwatch-buttons flex justify-center items-center m-25 text-base">
         <button
           className="stopwatch-button mr-10 px-6 py-2 bg-green-600 rounded text-white"
           onClick={handleClick}
@@ -69,7 +69,7 @@ const Stopwatch = () => {
           {isRunning ? "Stop" : "Start"}
         </button>
         <button
-          className="stopwatch-button px-6 py-2 bg-red-600 rounded text-white"
+          className="stopwatch-button px-6 py-2  bg-red-600 rounded text-white"
           onClick={reset}
         >
           Reset

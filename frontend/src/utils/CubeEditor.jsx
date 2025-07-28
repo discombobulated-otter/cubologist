@@ -5,7 +5,8 @@ import ColorPalette from "./../components/ColorPalette";
 import CubeFaceGrid from "./../components/CubeFaceGrid";
 import SubmitButton from "./../components/SubmitButton";
 import FaceNavigator from "./../components/FaceNavigator";
-
+// import FaceIndicator from "./../components/FaceIndicator";
+import SolutionDialog from "../components/SolutionDialog";
 import {
     initializeCubeState,
     paintCubeCell,
@@ -24,6 +25,9 @@ function CubeEditor() {
     const [currentFace, setCurrentFace] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
     const [validation, setValidation] = useState({ valid: false, errors: [] });
+
+    const [solutionOpen, setSolutionOpen] = useState(false);
+    const [solutionText, setSolutionText] = useState("");
 
     useEffect(() => {
         if (!checkCubeComplete(cubeState)) {
@@ -65,9 +69,12 @@ function CubeEditor() {
                 try {
                     const cube = Cube.fromString(kociembaString);
                     const solution = cube.solve(); // Already returns a space-separated string
-                    alert("Solution: " + solution);
+                    // alert("Solution: " + solution);
+                    setSolutionText(solution);
+                    setSolutionOpen(true);
                 } catch (error) {
-                    alert("Error solving cube: " + error.message);
+                    setSolutionText("Error solving cube: " + error.message);
+                    setSolutionOpen(true);
                 }
             }
         }, 1000);
@@ -118,6 +125,12 @@ function CubeEditor() {
                     </div>
                 )}
             </div>
+            {/* SOLUTION MODAL */}
+            <SolutionDialog
+                open={solutionOpen}
+                onClose={() => setSolutionOpen(false)}
+                solutionText={solutionText}
+            />
         </div>
     );
 }

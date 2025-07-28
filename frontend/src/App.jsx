@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 import CubeEditor from "./utils/CubeEditor";
 import Voxel from "./threeDimensionalCube/voxel";
-import Sidebar from "./components/SideBar";
+import Sidebar from "./components/NavBar";
 import Scrambler from "./timer/scrambler";
 
 function SidebarLayout({ children }) {
