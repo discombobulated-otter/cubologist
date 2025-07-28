@@ -30,7 +30,7 @@ function App() {
         <Router>
             <SidebarLayout>
                 <Routes>
-                    <Route path="/" element={<CubeEditor />} />
+                    <Route path="/cubologist" element={<CubeEditor />} />
                     <Route
                         path="/timer"
                         element={<Scrambler/>}

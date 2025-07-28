@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
 
 const navItems = [
-    { path: "/", label: "Cube Editor", icon: Box },
+    { path: "/cubologist", label: "Cube Editor", icon: Box },
     { path: "/timer", label: "Solve Timer", icon: Timer },
     { path: "/visualizer", label: "3D Visualizer", icon: Eye },
 ];
@@ -22,7 +22,7 @@ function Navbar() {
                 <div className="flex justify-between items-center h-16">
                     {/* Logo/Brand */}
                     <div className="flex-shrink-0">
-                        <button className="text-xl font-bold" onClick={() => window.location.href = "/"}>Cubologist</button>
+                        <button className="text-xl font-bold" onClick={() => window.location.href = "/cubologist"}>Cubologist</button>
                     </div>
 
                     {/* Desktop Navigation */}
