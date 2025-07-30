@@ -21,7 +21,7 @@ export default function FaceNavigator({ currentFace, setCurrentFace }) {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center space-y-6 p-10">
+        <div className="flex flex-col items-center m-0 justify-center p-10">
             <div className="flex w-full justify-between items-center">
                 <FaArrowAltCircleLeft
                     className="text-4xl scale-150 cursor-pointer"

@@ -2,8 +2,8 @@
 const faceKeys = ['U', 'R', 'F', 'D', 'L', 'B'];
 
 export const FACE_CENTER_COLOR = {
-  U: 'white',    // Changed from 'yellow' to 'white'
-  D: 'yellow',   // Changed from 'white' to 'yellow'
+  U: 'white',    
+  D: 'yellow',  
   F: 'green',
   B: 'blue',
   L: 'orange',

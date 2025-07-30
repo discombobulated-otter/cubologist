@@ -2,59 +2,29 @@ import React from "react";
 
 export default function SubmitButton({ onSubmit, isLoading, isCubeInputComplete }) {
     return (
+        <div className="flex flex-col ml-2 mt-0 justify-center items-center ">
+
         <button
             onClick={onSubmit}
             disabled={!isCubeInputComplete || isLoading}
-            style={{
-                padding: "0.5em 1.5em",
-                fontSize: "1rem",
-                borderRadius: "4px",
-                border: "none",
-                background: isLoading ? "#ccc" : "#CB010F",
-                color: "#fff",
-                cursor: (!isCubeInputComplete || isLoading) ? "not-allowed" : "pointer",
-                transition: "background 0.2s",
-                width: "200px",
-                margin: "0 auto",
-            }}
-            onMouseOver={e => {
-                if (!isLoading && isCubeInputComplete) {
-                    e.currentTarget.style.background = "#0056b3";
-                }
-            }}
-            onMouseOut={e => {
-                if (!isLoading && isCubeInputComplete) {
-                    e.currentTarget.style.background = "#CB010F";
-                }
-            }}
-        >
+            className={`px-2 py-2 w-48 text-white font-semibold rounded-md shadow-sm ${
+                isLoading ? "bg-gray-300" : "bg-red-600 hover:bg-red-700"
+            } ${
+                !isCubeInputComplete || isLoading ? "cursor-not-allowed" : "cursor-pointer"
+            } transition duration-150 ease-in-out`}
+            >
             {isLoading ? (
-                <span style={{ display: "inline-flex", alignItems: "center" }}>
+                <span className="flex items-center">
                     <span
-                        style={{
-                            width: "18px",
-                            height: "18px",
-                            border: "2px solid #fff",
-                            borderTop: "2px solid #007bff",
-                            borderRadius: "50%",
-                            marginRight: "8px",
-                            animation: "spin 1s linear infinite",
-                            display: "inline-block",
-                        }}
-                    />
+                        className="w-4 h-4 border-2 border-white border-t-blue-600 rounded-full mr-2 animate-spin"
+                        />
                     Loading...
                 </span>
             ) : (
-                    "Solve"
+                "Solve"
             )}
-            <style>
-                {`
-                    @keyframes spin {
-                        0% { transform: rotate(0deg);}
-                        100% { transform: rotate(360deg);}
-                    }
-                `}
-            </style>
         </button>
+    </div>
     );
 }
+

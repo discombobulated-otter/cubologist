@@ -64,7 +64,7 @@ function Rubik() {
         window.addEventListener("keydown", handleKeyDown);
         return () => window.removeEventListener("keydown", handleKeyDown);
     });
-    return (
+     return (
         <>
             <group ref={ref}>
                 {[...Array(3).keys()].map((x) =>
@@ -82,7 +82,6 @@ function Rubik() {
         </>
     );
 }
-
 function attachToRotationGroup(cubeGroup, rotationGroup, axis, limit) {
     cubeGroup.children
         .slice()

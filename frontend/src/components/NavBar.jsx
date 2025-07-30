@@ -4,8 +4,8 @@ import { useState } from "react";
 
 const navItems = [
     { path: "/cubologist", label: "Cube Editor", icon: Box },
-    { path: "/timer", label: "Solve Timer", icon: Timer },
-    { path: "/visualizer", label: "3D Visualizer", icon: Eye },
+    { path: "/cubologist/timer", label: "Solve Timer", icon: Timer },
+    { path: "/cubologist/visualizer", label: "3D Visualizer", icon: Eye },
 ];
 
 function Navbar() {
@@ -18,7 +18,7 @@ function Navbar() {
 
     return (
         <nav className="bg-gray-900 text-white shadow-lg">
-            <div className="absolute top-0 left-0 w-full z-100  mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="absolute top-0 left-0 w-full h-16 z-100  mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-16">
                     {/* Logo/Brand */}
                     <div className="flex-shrink-0">

@@ -15,10 +15,10 @@ function Cube({ position }) {
     const materials = [
         x === 1 ? COLOR_HEX.red : "#111",       // Right
         x === -1 ? COLOR_HEX.orange : "#111",   // Left
-        y === 1 ? COLOR_HEX.yellow : "#111",    // Top
-        y === -1 ? COLOR_HEX.white : "#111",    // Bottom
-        z === 1 ? COLOR_HEX.blue : "#111",      // Front
-        z === -1 ? COLOR_HEX.green : "#111",    // Back
+        y === 1 ? COLOR_HEX.white : "#111",    // Top
+        y === -1 ? COLOR_HEX.yellow : "#111",    // Bottom
+        z === 1 ? COLOR_HEX.green : "#111",   // Front
+        z === -1 ? COLOR_HEX.blue : "#111",   // Back 
     ];
 
     return (

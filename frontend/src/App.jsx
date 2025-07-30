@@ -15,7 +15,7 @@ function SidebarLayout({ children }) {
     const [collapsed, setCollapsed] = useState(false);
 
     return (
-        <div className="flex min-h-screen bg-[#030712] text-white">
+        <div className="flex bg-[#030712] text-white">
             <Sidebar
                 collapsed={collapsed}
                 toggle={() => setCollapsed((c) => !c)}
@@ -30,12 +30,12 @@ function App() {
         <Router>
             <SidebarLayout>
                 <Routes>
-                    <Route path="/cubologist" element={<CubeEditor />} />
+                    <Route path="/cubologist/" element={<CubeEditor />} />
                     <Route
-                        path="/timer"
+                        path="/cubologist/timer"
                         element={<Scrambler/>}
                     />
-                    <Route path="/visualizer" element={<Voxel />} />
+                    <Route path="/cubologist/visualizer" element={<Voxel />} />
                 </Routes>
             </SidebarLayout>
         </Router>

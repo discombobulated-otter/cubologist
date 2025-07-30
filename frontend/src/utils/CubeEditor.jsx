@@ -83,7 +83,7 @@ function CubeEditor() {
     const isCubeInputComplete = checkCubeComplete(cubeState);
 
     return (
-        <div className="min-h-screen flex flex-col justify-center items-center gap-6 p-8 bg-[#030712] text-white select-none">
+        <div className="h-full flex flex-col justify-center items-center gap-6 p-8 bg-[#030712] text-white select-none">
             <ColorPalette
                 selected={selectedColor}
                 onSelect={setSelectedColor}
