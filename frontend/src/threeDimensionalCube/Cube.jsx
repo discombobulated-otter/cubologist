@@ -1,3 +1,4 @@
+import { BoxGeometry } from "three";
 
 const COLOR_HEX = {
     white: "#FFFFFF",
@@ -23,10 +24,10 @@ function Cube({ position }) {
 
     return (
         <mesh position={position}>
-            <boxGeometry args={[0.95, 0.95, 0.95]} />
+            <boxGeometry args={[0.80, 0.8, 0.8]} />
             {materials.map((color, i) => (
                 <meshStandardMaterial
-                    key={i}
+                    key={((i+1)%2)}
                     attach={`material-${i}`}
                     color={color}
                 />

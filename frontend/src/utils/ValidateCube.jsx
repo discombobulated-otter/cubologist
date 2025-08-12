@@ -11,7 +11,7 @@ function validateCube(cube) {
     // Check each face has exactly 9 stickers
     for (const face of faces) {
         if (!Array.isArray(cube[face]) || cube[face].length !== 9) {
-            console.error(`Face ${face} must have exactly 9 stickers.`);
+            // console.error(`Face ${face} must have exactly 9 stickers.`);
         }
         for (const color of cube[face] || []) {
             colorCount[color] = (colorCount[color] || 0) + 1;
@@ -21,7 +21,7 @@ function validateCube(cube) {
     // Check there are exactly 9 of each color
     for (const color in colorCount) {
         if (colorCount[color] !== 9) {
-            console.error(`Color ${color} appears ${colorCount[color]} times (should be 9).`);
+            // console.error(`Color ${color} appears ${colorCount[color]} times (should be 9).`);
         }
     }
 

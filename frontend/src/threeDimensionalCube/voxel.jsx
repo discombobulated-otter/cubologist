@@ -1,5 +1,5 @@
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls, TrackballControls } from "@react-three/drei";
+import { TrackballControls } from "@react-three/drei";
 import Rubik from "./Rubik";
 
 // for reference :  this should be the format bizz  UUUUUUUUURRRRRRRRRFFFFFFFFFDDDDDDDDDLLLLLLLLLBBBBBBBBB
