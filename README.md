@@ -99,11 +99,11 @@ The binding is integrated to calculate and display the shortest solution sequenc
 
 * [x] 2D face editor + input validation
 * [x] Kociemba solver integration
+* [x] 3D cube rendering (Three.js)
+* [x] Scramble generator
+* [x] Cube time
 * [ ] Export/import cube state
-* [ ] 3D cube rendering (Three.js)
-* [ ] Scramble generator
 * [ ] UI accessibility improvements
-* [ ] Cube time
 
 ---
 
